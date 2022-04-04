@@ -1,0 +1,9 @@
+name,address,size,group,active
+dia,14,1,minutely,True
+minuto,16,1,monthly,False
+frequency_a,66,1,minutely,t
+frequency_c,70,2,mouthly,f
+voltage_a,72,2,minutely,"FALSE"
+voltage_c,76,1,monthly,
+current_a,78,2,minutely,TRUE
+current_c,82,2,monthly,

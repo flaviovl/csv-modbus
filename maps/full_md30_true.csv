@@ -1,0 +1,86 @@
+register,address,size,data,Type,group,active,byteorder,datamodel,description
+year,10,1,RTC_Ano,short,minutely,true,,,Ano
+month,11,1,RTC_Mes,Short,minutely,true,,,Mês
+day_of_the_year,12,1,RTC_DiaDoAno,short,minutely,true,,,Dia do Ano
+day_of_the_weed,13,1,RTC_DiaDaSemana,short,minutely,true,,,Dia da Semana
+day_of_the_month,14,1,RTC_DiaDoMes,short,minutely,true,,,Dia do Mês
+hour,15,1,RTC_Hora,short,minutely,true,,,Hora
+minute,16,1,RTC_Minuto,short,minutely,true,,,Minuto
+second,17,1,RTC_Segundo,short,minutely,true,,,Segundo
+frequency_a,66,2,FreqA,float,minutely,true,,,Medição Frequência fase A
+UrmsA,68,2,UrmsA,float,minutely,true,,,Tensão na Fase A
+UrmsB,70,2,UrmsB,float,minutely,true,,,Tensão na Fase B
+UrmsC,72,2,UrmsC,float,minutely,true,,,Tensão na Fase C
+IrmsA,74,2,IrmsA,float,minutely,true,,,Corrente na Fase A
+IrmsB,76,2,IrmsB,float,minutely,true,,,Corrente na Fase B
+IrmsC,78,2,IrmsC,float,minutely,true,,,Corrente na Fase C
+active_power_a,80,2,PotAtivA,float,minutely,true,,,Potência Ativa na Fase A
+active_power_b,82,2,PotAtivB,float,minutely,true,,,Potência Ativa na Fase B
+active_power_c,84,2,PotAtivC,float,minutely,true,,,Potência Ativa na Fase C
+total_active_power,86,2,PotAtivT,float,minutely,true,,,Potência Ativa Total
+reactive_power_a,88,2,PotReatA,float,minutely,true,,,Potência Reativa na Fase A
+reactive_power_b,90,2,PotReatB,float,minutely,true,,,Potência Reativa na Fase B
+reactive_power_c,92,2,PotReatC,float,minutely,true,,,Potência Reativa na Fase C
+total_reactive_power,94,2,PotReatT,float,minutely,true,,,Potência Reativa Total
+apparent_power_a,96,2,PotAparA,float,minutely,true,,,Potência Aparente na Fase A
+apparent_power_b,98,2,PotAparB,float,minutely,true,,,Potência Aparente na Fase B
+apparent_power_c,100,2,PotAparC,float,minutely,true,,,Potência Aparente na Fase C
+total_apparent_power,102,2,PotAparT,float,minutely,true,,,Potência Aparente Total
+power_factor_a,104,2,FatPotA,float,minutely,true,,,Fator de Potência Fase A
+power_factor_b,106,2,FatPotB,float,minutely,true,,,Fator de Potência Fase B
+power_factor_c,108,2,FatPotC,float,minutely,true,,,Fator de Potência Fase C
+total_power_factor,110,2,FatPotT,float,minutely,true,,,Fator de Potência Total
+dht_voltage_a,112,2,DhtUA,float,minutely,true,,,DHT Tesão Fase A
+dht_voltage_b,114,2,DhtUB,float,minutely,true,,,DHT Tesão Fase B
+dht_voltage_c,116,2,DhtUC,float,minutely,true,,,DHT Tesão Fase C
+dht_current_a,118,2,DhtIA,float,minutely,true,,,DHT Corrente Fase A
+dht_current_b,120,2,DhtIB,float,minutely,true,,,DHT Corrente Fase B
+dht_current_c,122,2,DhtIC,float,minutely,true,,,DHT Corrente Fase C
+consumption_a,132,2,ConsumoA,float,minutely,true,,,Consumo fase A (desde o último reset)
+consumption_b,134,2,ConsumoB,float,minutely,true,,,Consumo fase B (desde o último reset)
+consumption_c,136,2,ConsumoC,float,minutely,true,,,Consumo fase C (desde o último reset)
+total_consumption,138,2,ConsumoT,float,minutely,true,,,Consumo total (desde o último reset)
+energy_previous_month_peak_time,156,2,EnergGerPontaMesPassado,float,monthly,true,,,Energia gerada no mês anterior no horário de ponta
+energy_previous_month_off_peak,158,2,EnergGerForaPontaMesPassado,float,monthly,true,,,Energia gerada no mês anterior no horário fora de ponta
+energy_previous_month_reserved_time,160,2,EnergGerReservMesPassado,float,monthly,true,,,Energia gerada no mês anterior no horário reservado
+consumption_previous_month,162,2,ConsumoPontaMesPassado,float,monthly,true,,,Consumo no mês anterior no horário de ponta
+ConsumoForaPontaMesPassado,164,2,ConsumoForaPontaMesPassado,float,monthly,true,,,Consumo no mês anterior no horário fora de ponta
+ConsumoReservMesPassado,166,2,ConsumoReservMesPassado,float,monthly,true,,,Consumo no mês anterior no horário reservado
+EnergIndPontaMesPassado,168,2,EnergIndPontaMesPassado,float,monthly,true,,,Energia Indutiva no mês anterior no horário de ponta
+EnergIndForaPontaMesPassado,170,2,EnergIndForaPontaMesPassado,float,monthly,true,,,Energia Indutiva no mês anterior no horário fora de ponta
+EnergIndReservMesPassado,172,2,EnergIndReservMesPassado,float,monthly,true,,,Energia Indutiva no mês anterior no horário reservado
+EnergCapPontaMesPassado,174,2,EnergCapPontaMesPassado,float,monthly,true,,,Energia Capacitiva no mês anterior no horário de ponta
+EnergCapForaPontaMesPassado,176,2,EnergCapForaPontaMesPassado,float,monthly,true,,,Energia Capacitiva no mês anterior no horário fora de ponta
+EnergCapReservMesPassado,178,2,EnergCapReservMesPassado,float,monthly,true,,,Energia Capacitiva no mês anterior no horário reservado
+MaxPotAtivPontaMesPassado,180,2,MaxPotAtivPontaMesPassado,float,monthly,true,,,Máxima Potência Ativa acumulada em 15min. no mês anterior no horário de ponta
+MaxPotAtivForaPontaMesPassado,182,2,MaxPotAtivForaPontaMesPassado,float,monthly,true,,,Máxima Potência Ativa acumulada em 15min. no mês anterior no horário fora de ponta
+MaxPotAtivReservMesPassado,184,2,MaxPotAtivReservMesPassado,float,monthly,true,,,Máxima Potência Ativa acumulada em 15min. no mês anterior no horário reservado
+MaxPotReatPontaMesPassado,186,2,MaxPotReatPontaMesPassado,float,monthly,true,,,Máxima Potência Reativa acumulada em 15min. no mês anterior no horário de ponta
+MaxPotReatForaPontaMesPassado,188,2,MaxPotReatForaPontaMesPassado,float,monthly,true,,,Máxima Potência Reativa acumulada em 15min. no mês anterior no horário fora de ponta
+generated_energy_peak_time,264,2,EnergGerPonta15min,float,quartely,true,,,Energia Gerada nos últimos 15 minutos no horário de ponta
+generated_energy_off_peak_time,266,2,EnergGerForaPonta15min,float,quartely,true,,,Energia Gerada nos últimos 15 minutos no horário fora de ponta
+generated_energy_reserve_time,268,2,EnergGerReserv15min,float,quartely,true,,,Energia Gerada nos últimos 15 minutos no horário reservado
+consumption_peak_time,270,2,ConsumoPonta15min,float,quartely,true,,,Consumo nos últimos 15 minutos no horário de ponta
+consumption_off_peak_time,272,2,ConsumoForaPonta15min,float,quartely,true,,,Consumo nos últimos 15 minutos no horário fora de ponta
+consumption_reserve_time,274,2,ConsumoReserv15min,float,quartely,true,,,Consumo nos últimos 15 minutos no horário reservado
+inductive_power_peak_time,276,2,EnergIndPonta15min,float,quartely,true,,,Energia Indutiva nos últimos 15 minutos no horário de ponta
+inductive_power_off_peak_time,278,2,EnergIndForaPonta15min,float,quartely,true,,,Energia Indutiva nos últimos 15 minutos no horário fora de ponta
+inductive_power_off_peak_time,280,2,EnergIndReserv15min,float,quartely,true,,,Energia Indutiva nos últimos 15 minutos no horário reservado
+capacitive_power_peak_time,282,2,EnergCapPonta15min,float,quartely,true,,,Energia Capacitiva nos últimos 15 minutos no horário de ponta
+capacitive_power_off_peak_time,284,2,EnergCapForaPonta15min,float,quartely,true,,,Energia Capacitiva nos últimos 15 minutos no horário fora de ponta
+Lista7MaxPotAtivPontaMesPassado,420,8,Lista7MaxPotAtivPontaMesPassado,float,monthly,true,,,Lista # 7: Quatro maiores Pot. Acc. Ativas no mês passado
+Lista8MaxPotAtivForaPonta,428,8,Lista8MaxPotAtivForaPonta,float,monthly,true,,,Lista # 8: Quatro maiores Pot. Acc. Ativas no mês passado
+Lista9MaxPotAtivReserv,436,8,Lista9MaxPotAtivReserv,float,monthly,true,,,Lista # 9: Quatro maiores Pot. Acc. Ativas no mês passado
+Lista10MaxPotReatPonta,444,8,Lista10MaxPotReatPonta,float,monthly,true,,,Lista # 10: Quatro maiores Pot. Acc. Reativas no mês passado
+Lista11MaxPotReatForaPonta,452,8,Lista11MaxPotReatForaPonta,float,monthly,true,,,Lista # 11: Quatro maiores Pot. Acc. Reativas no mês passado
+Lista12MaxPotReatReserv,460,8,Lista12MaxPotReatReserv,float,monthly,true,,,Lista # 12: Quatro maiores Pot. Acc. Reativas no mês atual passado
+MesDiaLista7,516,4,MesDiaLista7,short,monthly,true,,,Data no formato “MesDia”
+HoraMinLista7,520,4,HoraMinLista7,short,monthly,true,,,Hora no formato “HoraMin”
+MesDiaLista8,524,4,MesDiaLista8,short,monthly,true,,,Data no formato “MesDia”
+HoraMinLista8,528,4,HoraMinLista8,short,monthly,true,,,Hora no formato “HoraMin”
+MesDiaLista9,532,4,MesDiaLista9,short,monthly,true,,,Data no formato “MesDia”
+HoraMinLista9,536,4,HoraMinLista9,short,monthly,true,,,Hora no formato “HoraMin”
+MesDiaLista10,540,4,MesDiaLista10,short,monthly,true,,,Data no formato “MesDia”
+HoraMinLista10,544,4,HoraMinLista10,short,monthly,true,,,Hora no formato “HoraMin”
+MesDiaLista11,548,4,MesDiaLista11,short,monthly,true,,,Data no formato “MesDia”
+HoraMinLista11,552,4,HoraMinLista11,short,monthly,true,,,Hora no formato “HoraMin”
