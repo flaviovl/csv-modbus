@@ -18,6 +18,7 @@ def csv_map_parser(file_path) -> List[OrderedDict[str, str]]:
             raw_map_block.append(raw_line)
     return raw_map_block
 
+
 def modbus_decoder_map(
     raw_map_block, template
 ) -> List[OrderedDict[str, Union[str, int]]]:
@@ -77,6 +78,13 @@ def build_range_map(
     return register_ranges
 
 
+def print_registers(text, regs):
+    print("---" * 30)
+    print(text)
+    print("")
+    print("Tuple(addr_initial, size):", regs)
+
+
 def main():
 
     path_file = "maps/full_md30_true.csv"
@@ -84,7 +92,7 @@ def main():
     # localhost =
 
     raw_map_block: List[OrderedDict[str, str]] = []
-    
+
     register_minutely: List[OrderedDict[str, Union[str, int]]] = []
     register_quartely: List[OrderedDict[str, Union[str, int]]] = []
     register_monthly: List[OrderedDict[str, Union[str, int]]] = []
@@ -106,15 +114,21 @@ def main():
     register_minutely = buid_group_map(valid_map_block, group_minutely)
     register_quartely = buid_group_map(valid_map_block, group_quartely)
     register_monthly = buid_group_map(valid_map_block, group_monthly)
-    
-    address_minutely = [(line["address"], line["size"]) for line in register_minutely]
-    address_quartely = [(line["address"], line["size"]) for line in register_quartely]
-    address_monthly = [(line["address"], line["size"]) for line in register_monthly]
-    
+
+    address_minutely = [(line["address"], line["size"]) for line in register_minutely]  # type: ignore
+    address_quartely = [(line["address"], line["size"]) for line in register_quartely]  # type: ignore
+    address_monthly = [(line["address"], line["size"]) for line in register_monthly]    # type: ignore
+
     group_request_minutely = build_range_map(address_minutely, max_reg_request)
     group_request_quartely = build_range_map(address_quartely, max_reg_request)
     group_request_monthly = build_range_map(address_monthly, max_reg_request)
-# ====================================================================================================
+
+# ==================================================================================================
+    print_registers("Group de Request Minutely:", group_request_minutely)
+    print_registers("Group de Request Quartely:", group_request_quartely)
+    print_registers("Group de Request Monthly:", group_request_monthly)
+    print("---" * 30)
+# ==================================================================================================
 
 
 if __name__ == "__main__":
