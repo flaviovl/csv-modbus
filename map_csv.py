@@ -2,6 +2,8 @@ from collections import OrderedDict
 from csv import DictReader
 from typing import Dict, List, NewType, Tuple, Union
 
+from utils import str_bool
+
 
 def csv_map_parser(file_path) -> List[OrderedDict[str, str]]:
     raw_map_block: List[OrderedDict[str, str]] = []
@@ -16,6 +18,24 @@ def csv_map_parser(file_path) -> List[OrderedDict[str, str]]:
             raw_map_block.append(raw_line)
     return raw_map_block
 
+def modbus_decoder_map(
+    raw_map_block, template
+) -> List[OrderedDict[str, Union[str, int]]]:
+    valid_map_block: List[OrderedDict[str, Union[str, int]]] = []
+
+    for line in raw_map_block:
+        line["address"] = int(line["address"])
+        line["size"] = int(line["size"])
+        line["active"] = str_bool(line["active"])
+
+        if line["active"]:
+            valid_line = OrderedDict()
+            for column in line:
+                if column in template:
+                    valid_line[column] = line[column]
+            valid_map_block.append(valid_line)
+
+    return valid_map_block
 
 def main():
 
