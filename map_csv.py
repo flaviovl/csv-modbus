@@ -37,16 +37,38 @@ def modbus_decoder_map(
 
     return valid_map_block
 
+
+def buid_group_map(map_block, group: str) -> List[OrderedDict[str, Union[str, int]]]:
+    group_map: List[OrderedDict[str, Union[str, int]]] = []
+
+    for line in map_block:
+        if line["group"] == group:
+            # line.__delitem__("group")
+            group_map.append(line)
+
+    return group_map
+
+
 def main():
 
     path_file = "maps/full_md30_true.csv"
     # path_file = "maps/med_md30.csv"
     # localhost =
 
+    template = ["register", "address", "size", "type", "group"]
+    group_minutely: str = "minutely"
+    group_quartely: str = "quartely"
+    group_monthly: str = "monthly"
+
     raw_map_block: List[OrderedDict[str, str]] = []
     raw_map_block = csv_map_parser(path_file)
+    
+    valid_map_block = modbus_decoder_map(raw_map_block, template)
 
-
+    register_minutely = buid_group_map(valid_map_block, group_minutely)
+    register_quartely = buid_group_map(valid_map_block, group_quartely)
+    register_monthly = buid_group_map(valid_map_block, group_monthly)
+    
 # ====================================================================================================
 
 
