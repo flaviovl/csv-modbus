@@ -1,13 +1,15 @@
+from constants import parameters
 from mapper_csv import main as run
 from pymodbus.client.sync import ModbusTcpClient as SyncModbusClient
 from pymodbus.constants import Endian
 from pymodbus.payload import BinaryPayloadDecoder
 from pymodbus.register_read_message import ReadHoldingRegistersResponse
 
+from config import devices_config
 
-def read_holding_registers(
-    address, size, client
-) -> ReadHoldingRegistersResponse | None:
+
+# --------------------------------------------------------------------------------------------------
+def read_holding_registers(address, size, client) -> ReadHoldingRegistersResponse | None:
 
     response: ReadHoldingRegistersResponse
     response = client.read_holding_registers(address, size, unit=1)
@@ -16,70 +18,71 @@ def read_holding_registers(
         print("Error reading holding registers")
         return None
     return response
+# --------------------------------------------------------------------------------------------------
 
 
-def modbus_client(ip, port):
-    client = SyncModbusClient(ip, port)
-    client.connect()
+def connect_modbus_client(ip_address, port, protocol) -> SyncModbusClient | None:
+    
+    if protocol == 0:                                 # TCP
+        client = SyncModbusClient(ip_address, port)
+        client.connect()
+
+    elif protocol == 1:                               # UDP
+        client = SyncModbusClient(ip_address, port)
+        client.connect()
+
+    else:
+        client = None
+        print("protocol not implemented")
 
     return client
+# --------------------------------------------------------------------------------------------------
 
 
-def decodec_modbus(decoder):
-    return {
-        "frequency_a": decoder.decode_32bit_float(),
-        "UrmsA": decoder.decode_32bit_float(),
-        "UrmsB": decoder.decode_32bit_float(),
-        "UrmsC": decoder.decode_32bit_float(),
-        "IrmsA": decoder.decode_32bit_float(),
-        "IrmsB": decoder.decode_32bit_float(),
-        "IrmsC": decoder.decode_32bit_float(),
-        "active_power_a": decoder.decode_32bit_float(),
-        "active_power_b": decoder.decode_32bit_float(),
-        "active_power_c": decoder.decode_32bit_float(),
-        "total_active_power": decoder.decode_32bit_float(),
-        "reactive_power_a": decoder.decode_32bit_float(),
-        "reactive_power_b": decoder.decode_32bit_float(),
-        "reactive_power_c": decoder.decode_32bit_float(),
-        "total_reactive_power": decoder.decode_32bit_float(),
-        "apparent_power_a": decoder.decode_32bit_float(),
-        "apparent_power_b": decoder.decode_32bit_float(),
-        "apparent_power_c": decoder.decode_32bit_float(),
-        "total_apparent_power": decoder.decode_32bit_float(),
-        "power_factor_a": decoder.decode_32bit_float(),
-        "power_factor_b": decoder.decode_32bit_float(),
-        "power_factor_c": decoder.decode_32bit_float(),
-        "total_power_factor": decoder.decode_32bit_float(),
-        "dht_voltage_a": decoder.decode_32bit_float(),
-        "dht_voltage_b": decoder.decode_32bit_float(),
-        "dht_voltage_c": decoder.decode_32bit_float(),
-        "dht_current_a": decoder.decode_32bit_float(),
-        "dht_current_b": decoder.decode_32bit_float(),
-        "dht_current_c": decoder.decode_32bit_float(),
-    }
+def simple_decoded(payload_decoder, index, size):
+    """
+        index => Endereço inicial da tabela modbus
+        size => Quantos registradores deseja ler
+    """
+    payload_decoded = {}
+    for address in range(index, index + size, 2):
+        payload_decoded[f'{address}'] = round(payload_decoder.decode_32bit_float(), 2)
+
+    # print(payload_decoded)
+    return payload_decoded
+# --------------------------------------------------------------------------------------------------
 
 
-def main(ip, port, index, size):
-
-    client_mb = modbus_client(ip, port)
+def main(index, size):
+    
+    protocol: int = devices_config["MD30"]["protocol"]
+    ip_address: str = devices_config["MD30"]["ip_address"]
+    port: int = devices_config["MD30"]["port"]
+    
+    client_mb = connect_modbus_client(ip_address, port, protocol)
+    
     response = read_holding_registers(index, size, client_mb)
+    
     payload_decoder = BinaryPayloadDecoder.fromRegisters(
         response.registers, byteorder=Endian.Big, wordorder=Endian.Little
     )
     
-    decoded_data = decodec_modbus(payload_decoder)
-    # decoder = BinaryModbusDecoder.fromRegisters(response.registers)
+    # decoded_data = decodec_modbus(payload_decoder)
+    decoded_data = simple_decoded(payload_decoder, index, size)
 
-    # for name, value in iteritems(decoded_data):
-    #     print("%s\t" % name, value)
+    print(decoded_data)
+    measurements = dict(zip(parameters, decoded_data.values()))
+    print(f'Measurements: {len(measurements)}')
+    
+    for param, value in measurements.items():
+        print(f'{param}: {value}')    
+# --------------------------------------------------------------------------------------------------
 
 
 if __name__ == "__main__":
-    ip: str = "164.41.20.228"
-    port: int = 1001
 
     minutely = run()
     index, size = minutely[1]
     print(f"index: {index}, size: {size}")
     
-    main(ip, port, index, size)
+    main(index, size)
